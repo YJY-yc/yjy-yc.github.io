@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANTKit3.5.1.10</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-size: 12px; 
+            /* 最小化行距 */
+            line-height: 1; 
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 24px; 
+            margin-bottom: 20px;
+            color: #333;
+            /* 最小化行距 */
+            line-height: 1; 
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate; 
+            border-spacing: 0; 
+            border: 2px solid #999; 
+            background: linear-gradient(to bottom, rgb(210, 210, 255), white 50%, rgb(210, 210, 255));
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+
+        th, td {
+            padding: 15px 20px; 
+            text-align: left;
+            border-right: 1px solid #ccc; 
+            border-bottom: 1px solid #ccc; 
+            font-size: 12px; 
+            color: #333; 
+            /* 最小化行距 */
+            line-height: 1; 
+        }
+
+        th:last-child, td:last-child {
+            border-right: none; 
+        }
+
+        tr:last-child td {
+            border-bottom: none; 
+        }
+
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-transform: uppercase; 
+            /* 最小化行距 */
+            line-height: 1; 
+        }
+
+        .left-column {
+            width: 30%;
+            vertical-align: top;
+        }
+
+        .download-button {
+            display: inline-block;
+            background-color: #0072c6;
+            color: white;
+            padding: 12px 25px; 
+            text-decoration: none;
+            border-radius: 0; 
+            font-weight: bold;
+            transition: background-color 0.3s;
+            font-size: 12px; 
+            /* 最小化行距 */
+            line-height: 1; 
+        }
+
+        .download-button:hover {
+            background-color: #005a9e;
+        }
+
+        .links {
+            margin-top: 15px;
+        }
+
+        .links a {
+            display: block;
+            color: #0072c6;
+            text-decoration: none;
+            margin-bottom: 8px;
+            font-size: 10px; 
+            /* 最小化行距 */
+            line-height: 1; 
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 12px; 
+            /* 最小化行距 */
+            line-height: 1; 
+        }
+
+        .feature-list li::before {
+            content: "•";
+            color: #333;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">ANTKit3.5.1.10</h1>
+        <table>
+            <tr>
+                <td class="left-column">
+                    <h2>下载</h2>
+                    <a href="https://github.com/YJY-yc/Advanced-Network-Toolset/releases/download/3.5.1.10/AntKit_3.5.1.10.exe" class="download-button">下载最新版本</a>
+                    <div class="links">
+                        <a href="https://yjymain.rth1.xyz/Update.txt">查看更新日志</a>
+                        <a href="https://yjymain.rth1.xyz/History.html">下载旧版本</a>
+                        <a href="https://yjymain.lanzouq.com/iYZxn31glali">网盘下载（密码：1145）</a>
+                    </div>
+                </td>
+                <td>
+                    <h2>功能介绍</h2>
+                    <ul class="feature-list">
+                        <li><a href="https://private-user-images.githubusercontent.com/202295580/469270013-ff1e28ea-4570-4551-92c3-a62ca009b5bc.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTMxOTcwMjQsIm5iZiI6MTc1MzE5NjcyNCwicGF0aCI6Ii8yMDIyOTU1ODAvNDY5MjcwMDEzLWZmMWUyOGVhLTQ1NzAtNDU1MS05MmMzLWE2MmNhMDA5YjViYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNzIyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDcyMlQxNTA1MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jYjljMDYwOGE4ZGE5ZmQxYWNlNGU0NzY3MTQ5NmI3ZWJlM2E4ZTI5Mzg5NzY4ZjU4MjczODViOGEyMTQ5YzE1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.myucyApjw1Sq-L44DOZTtsqXigS2RuDaO9WLEuhJyBE">普通下载</a>：支持基础的文件下载操作。</li>
+                        <li><a href="https://private-user-images.githubusercontent.com/202295580/469270193-31a55e65-eb7b-4aab-8360-a93887c5c809.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTMxOTcwMjQsIm5iZiI6MTc1MzE5NjcyNCwicGF0aCI6Ii8yMDIyOTU1ODAvNDY5MjcwMTkzLTMxYTU1ZTY1LWViN2ItNGFhYi04MzYwLWE5Mzg4N2M1YzgwOS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNzIyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDcyMlQxNTA1MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1kYzllYmEzZTVkM2FiMmIwMjM3NmNmMjgxNjUxYTAxYTY3MTRlZmZjYjQxZTU3OTcxNTNhMWE1NWRiMzQ0YmJmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.u6kfJDUwLx33xcKctEUN0tsE-TvL7mY7w-evpdbAv7w">高级下载</a>：多线程下载（Alpha）</li>
+                        <li><a href="https://private-user-images.githubusercontent.com/202295580/469270263-483252a7-fecb-406b-b211-aa2921cc51db.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTMxOTcwMjQsIm5iZiI6MTc1MzE5NjcyNCwicGF0aCI6Ii8yMDIyOTU1ODAvNDY5MjcwMjYzLTQ4MzI1MmE3LWZlY2ItNDA2Yi1iMjExLWFhMjkyMWNjNTFkYi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNzIyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDcyMlQxNTA1MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01N2VhNDEzZGFkYmE2NTIwY2RmODY4NDU5NTFjNGE0NjJlNmY1MTk2ZjJmZmI4M2E3NDEwMGI5YmY0Y2MwYzNiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.4QqVXa7qj1sRj_CpbKD7tz__jxOoGfzcm3HPQOfoJgc">批量下载</a>：可同时下载多个文件，提高下载效率。</li>
+                        <li><a href="https://private-user-images.githubusercontent.com/202295580/469270359-15edf6a2-bd8e-42bd-8007-75de9ddae484.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTMxOTcwMjQsIm5iZiI6MTc1MzE5NjcyNCwicGF0aCI6Ii8yMDIyOTU1ODAvNDY5MjcwMzU5LTE1ZWRmNmEyLWJkOGUtNDJiZC04MDA3LTc1ZGU5ZGRhZTQ4NC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNzIyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDcyMlQxNTA1MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mNDNmYjZhM2I0ZDgzNmUzNGQ1NjAzM2ZhMTQ2ZmQxOTczNjM3Yjc0MWU1MTgwODhlYzk1MDk0MjkyZGY1YzBmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.MH9D883oI7D-gnKTwIOEpfnTsCjMAoDaievFKF5xFyY">网页筛选</a>：能从网页中提取所需信息。</li>
+                        <li><a href="https://private-user-images.githubusercontent.com/202295580/469271088-8e860d70-45f5-485b-9f3a-9a7847a262be.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTMxOTcwMjQsIm5iZiI6MTc1MzE5NjcyNCwicGF0aCI6Ii8yMDIyOTU1ODAvNDY5MjcxMDg4LThlODYwZDcwLTQ1ZjUtNDg1Yi05ZjNhLTlhNzg0N2EyNjJiZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNzIyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDcyMlQxNTA1MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mZDA5NDhjYmFlYzIxYzMyZTAxMTZiYzgzYTA3MjgyMjM5MWRhZmJiNzNlYTRlNWU4YzA3NzUyMWQxZDhmYTZmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.6wW7JJFJn2OAlJCEpe45Z1p_b9Rgao2JwxwYWnhIqhE">DNS 编辑</a>：对 DNS 记录进行管理和编辑。</li>
+                        <li><a href="https://private-user-images.githubusercontent.com/202295580/469271083-72c9878c-4a6c-4dc5-bb61-326670bbe50d.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTMxOTcwMjQsIm5iZiI6MTc1MzE5NjcyNCwicGF0aCI6Ii8yMDIyOTU1ODAvNDY5MjcxMDgzLTcyYzk4NzhjLTRhNmMtNGRjNS1iYjYxLTMyNjY3MGJiZTUwZC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNzIyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDcyMlQxNTA1MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xMTM2MzVmOGE5MzIxN2I5NTRmYzEwZmZlNzdiM2MyY2M1N2I0NjU1NjRiMjBjOGI1NmVlZDY0MDMzODlhMGIwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.nl8Tno4yv64JcV4Qy95sf97hqpLuM1p0llCjhMad79M">Ping</a>：测试网络连通性。</li>
+                        <li><a href="https://private-user-images.githubusercontent.com/202295580/469271139-e0d6c4d6-d653-4631-b063-a42a023c4173.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTMxOTcwMjQsIm5iZiI6MTc1MzE5NjcyNCwicGF0aCI6Ii8yMDIyOTU1ODAvNDY5MjcxMTM5LWUwZDZjNGQ2LWQ2NTMtNDYzMS1iMDYzLWE0MmEwMjNjNDE3My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNzIyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDcyMlQxNTA1MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02MjI0ZDRlOTY4NDc5YTRmMDU5ZjBjNTI4YjNhMmYxNWM5ODU4MzM5OWFlM2FlMDFiOWI5YjVhNDdhY2QzOTYyJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.vdJxepgnF039L1Fa-ejeOPmfIvqd54lrreE5gIvBu6g">转发文件</a>：可将文件转发到指定位置。</li>
+                        <li><a href="https://private-user-images.githubusercontent.com/202295580/469271354-a4eb29b4-3fa0-4f02-a1b3-88ee34d6b140.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTMxOTcwMjQsIm5iZiI6MTc1MzE5NjcyNCwicGF0aCI6Ii8yMDIyOTU1ODAvNDY5MjcxMzU0LWE0ZWIyOWI0LTNmYTAtNGYwMi1hMWIzLTg4ZWUzNGQ2YjE0MC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNzIyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDcyMlQxNTA1MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hZGE1YWMxNGQyYmY4NDg5N2YzYmIzNTdmYzFiZjE3M2E3YWI2NjViOGQzNjBlMjRmYjYwYTcwY2U4ODMwMmU2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.pU0HJhWRwFaHNOv6gdOwKy7mEtaWrrUsgFs7pUjLxKo">内网通讯</a>：实现内网设备间的信息交流。</li>
+                    </ul>
+                    <div class="links">
+                        <h3>相关链接</h3>
+                        <a href="https://github.com/YJY-yc/Advanced-Network-Toolset">开源项目地址</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
