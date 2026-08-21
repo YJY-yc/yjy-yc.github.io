@@ -1,169 +1,524 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANTKit3.5.2.2</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            font-size: 12px; 
-            /* 最小化行距 */
-            line-height: 1; 
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nodanium 下载</title>
+<meta name="description" content="Nodanium 多线程网络下载工具下载。支持 Linux / Windows 平台，安装包与压缩包，GitHub 与网盘下载。">
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --panel: #ffffff;
+    --card: #ffffff;
+    --border: #e2e5ea;
+    --border-soft: #eceff3;
+    --text: #2c3e50;
+    --text-dim: #5d6b7a;
+    --text-faint: #8a97a6;
+    --accent: #2673e1;
+    --accent-soft: #eaf2ff;
+    --green: #178a3a;
+    --green-soft: #e9f6ec;
+    --radius: 8px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+            "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    --mono: Consolas, Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-        }
+  header { background: var(--panel); border-bottom: 1px solid var(--border); }
+  .nav { max-width: 900px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-weight: 700; font-size: 18px; color: var(--accent); }
+  .nav-right { display: flex; align-items: center; gap: 14px; }
+  .gh-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 15px; border: 1px solid var(--border); border-radius: var(--radius);
+    font-size: 14px; font-weight: 600; color: var(--text); background: var(--panel);
+  }
+  .gh-btn:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); text-decoration: none; }
+  .gh-btn .mark { font-size: 16px; }
+  .card.detected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .detected-tag {
+    display: none; margin-top: 8px; font-size: 12px; color: #fff;
+    background: var(--accent); border-radius: 4px; padding: 2px 8px; width: fit-content;
+  }
+  .card.detected .detected-tag { display: inline-block; }
 
-        .page-title {
-            text-align: center;
-            font-size: 24px; 
-            margin-bottom: 20px;
-            color: #333;
-            /* 最小化行距 */
-            line-height: 1; 
-        }
+  .hero { max-width: 900px; margin: 0 auto; padding: 48px 20px 24px; text-align: center; }
+  .hero h1 { font-size: 30px; margin-bottom: 8px; }
+  .hero p { color: var(--text-dim); }
+  .version {
+    display: inline-block; margin-top: 18px; background: var(--accent-soft);
+    color: var(--accent); border: 1px solid #cfe0f9; padding: 5px 16px;
+    border-radius: 16px; font-size: 14px;
+  }
 
-        table {
-            width: 100%;
-            border-collapse: separate; 
-            border-spacing: 0; 
-            border: 2px solid #999; 
-            background: linear-gradient(to bottom, rgb(210, 210, 255), white 50%, rgb(210, 210, 255));
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-        }
+  .section { max-width: 900px; margin: 0 auto; padding: 28px 20px 10px; }
+  .section-title { font-size: 19px; font-weight: 600; margin-bottom: 6px; }
+  .section-note { color: var(--text-faint); font-size: 13px; margin-bottom: 18px; }
 
-        th, td {
-            padding: 15px 20px; 
-            text-align: left;
-            border-right: 1px solid #ccc; 
-            border-bottom: 1px solid #ccc; 
-            font-size: 12px; 
-            color: #333; 
-            /* 最小化行距 */
-            line-height: 1; 
-        }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 
-        th:last-child, td:last-child {
-            border-right: none; 
-        }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .card-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px; border-bottom: 1px solid var(--border-soft); background: #fafbfc;
+  }
+  .card-head h3 { font-size: 17px; }
+  .card-head .sub { font-size: 12.5px; color: var(--text-faint); }
+  .arch-tag {
+    background: var(--panel); border: 1px solid var(--border); padding: 3px 10px;
+    border-radius: 4px; font-size: 12px; color: var(--text-dim); font-family: var(--mono);
+  }
+  .card-body { padding: 16px; }
 
-        tr:last-child td {
-            border-bottom: none; 
-        }
+  .file { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; }
+  .file:last-child { margin-bottom: 0; }
+  .file-labels { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; cursor: pointer; }
+  .file-labels:hover { background: #fafbfc; }
+  .fname { font-weight: 600; font-size: 14px; flex: 1; }
+  .fmeta { font-size: 12px; color: var(--text-faint); margin-top: 2px; font-family: var(--mono); }
+  .chev { color: var(--text-faint); font-size: 12px; }
+  .file.open .chev { transform: rotate(180deg); }
+  .dl-area { display: none; padding: 0 14px 14px; }
+  .file.open .dl-area { display: block; }
+  .dl-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .dl-btn {
+    display: block; text-align: center; padding: 10px; border-radius: var(--radius);
+    border: 1px solid; font-weight: 600; font-size: 14px; cursor: pointer;
+  }
+  .dl-btn.github { border-color: var(--accent); color: var(--accent); }
+  .dl-btn.github:hover { background: var(--accent-soft); text-decoration: none; }
+  .dl-btn.netdisk { border-color: var(--green); color: var(--green); }
+  .dl-btn.netdisk:hover { background: var(--green-soft); text-decoration: none; }
+  .dl-btn.disabled { opacity: .45; cursor: not-allowed; border-color: var(--border) !important; color: var(--text-faint) !important; }
+  .dl-btn.disabled:hover { background: var(--panel); }
 
-        th {
-            background-color: #f0f0f0;
-            font-weight: bold;
-            text-transform: uppercase; 
-            /* 最小化行距 */
-            line-height: 1; 
-        }
+  footer { text-align: center; color: var(--text-faint); font-size: 13px; padding: 26px 20px 40px; }
 
-        .left-column {
-            width: 30%;
-            vertical-align: top;
-        }
+  /* ===== 网盘提取码弹窗 ===== */
+  .modal {
+    position: fixed; inset: 0; background: rgba(44,62,80,.45);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200; opacity: 0; pointer-events: none; transition: opacity .2s;
+  }
+  .modal.show { opacity: 1; pointer-events: auto; }
+  .modal-box {
+    background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+    max-width: 400px; width: 90%; padding: 22px; box-shadow: 0 10px 40px rgba(0,0,0,.2);
+  }
+  .pwd-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+  .pwd-tip { font-size: 14px; margin-bottom: 10px; }
+  .pwd-tip.dim { color: var(--text-faint); }
+  .pwd-code {
+    display: inline-block; margin-left: 2px; padding: 2px 10px; border: 1px dashed var(--accent);
+    border-radius: 5px; color: var(--accent); font-family: var(--mono); font-size: 16px; letter-spacing: 2px;
+  }
+  .pwd-note { font-size: 12.5px; color: var(--text-faint); margin-bottom: 16px; }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+  .btn {
+    padding: 8px 16px; border-radius: var(--radius); border: 1px solid; font-size: 14px;
+    font-weight: 600; cursor: pointer;
+  }
+  .btn-copy { border-color: var(--border); color: var(--text-dim); background: var(--panel); }
+  .btn-cancel { border-color: var(--border); color: var(--text-dim); background: var(--panel); }
+  .btn-confirm { border-color: var(--green); color: #fff; background: var(--green); }
+  .btn-confirm:hover { opacity: .9; }
+  .btn-sm { padding: 5px 12px; font-size: 12.5px; }
 
-        .download-button {
-            display: inline-block;
-            background-color: #0072c6;
-            color: white;
-            padding: 12px 25px; 
-            text-decoration: none;
-            border-radius: 0; 
-            font-weight: bold;
-            transition: background-color 0.3s;
-            font-size: 12px; 
-            /* 最小化行距 */
-            line-height: 1; 
-        }
+  /* ===== Linux 安装说明 ===== */
+  .lnote {
+    margin: -4px 0 0; padding: 14px 16px 16px;
+    border-top: 1px dashed var(--border); background: #f7f9fb;
+  }
+  .lnote-title { font-size: 13.5px; font-weight: 600; color: var(--text-dim); margin-bottom: 8px; }
+  .lcode {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    padding: 10px 12px; font-family: var(--mono); font-size: 12px; line-height: 1.9;
+    color: var(--text); overflow-x: auto; margin: 0 0 10px 0;
+  }
+  .lcopy { text-align: right; }
 
-        .download-button:hover {
-            background-color: #005a9e;
-        }
-
-        .links {
-            margin-top: 15px;
-        }
-
-        .links a {
-            display: block;
-            color: #0072c6;
-            text-decoration: none;
-            margin-bottom: 8px;
-            font-size: 10px; 
-            /* 最小化行距 */
-            line-height: 1; 
-        }
-
-        .links a:hover {
-            text-decoration: underline;
-        }
-
-        .feature-list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .feature-list li {
-            margin-bottom: 10px;
-            padding-left: 20px;
-            position: relative;
-            font-size: 12px; 
-            /* 最小化行距 */
-            line-height: 1; 
-        }
-
-        .feature-list li::before {
-            content: "•";
-            color: #333;
-            position: absolute;
-            left: 0;
-        }
-    </style>
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; }
+    .dl-btns { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="page-title">ANTKit3.5.2.2</h1>
-        <table>
-            <tr>
-                <td class="left-column">
-                    <h2>下载</h2>
-                    <a href="https://github.com/YJY-yc/Advanced-Network-Toolset/releases/download/3.5.2.2/ANTKit3.5.2.2_Win_x86_Installer.exe" class="download-button">下载最新版本(安装器)</a>
-                    <div class="links">
-						<a href="https://github.com/YJY-yc/Advanced-Network-Toolset/releases/tag/3.5.2.2">查看更多版本</a>
-                        <a href="https://yjymain.rth1.xyz/Update.txt">查看更新日志</a>
-                        <a href="https://yjymain.rth1.xyz/History.html">下载旧版本</a>
-                        <a href="https://yjymain.lanzouq.com/iFWep33re6qf">网盘下载</a>
-                    </div>
-                </td>
-                <td>
-                    <h2>功能介绍</h2>
-                    <ul class="feature-list">
-                        <li><a href="https://github.com/YJY-yc/Advanced-Network-Toolset?tab=readme-ov-file#1-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD">普通下载</a>：支持基础的文件下载操作。</li>
-                        <li><a href="https://github.com/YJY-yc/Advanced-Network-Toolset?tab=readme-ov-file#1-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD">高级下载</a>：多线程下载（Alpha）</li>
-                        <li><a href="https://github.com/YJY-yc/Advanced-Network-Toolset?tab=readme-ov-file#1-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD">批量下载</a>：可同时下载多个文件，提高下载效率。</li>
-                        <li><a href="https://github.com/YJY-yc/Advanced-Network-Toolset?tab=readme-ov-file#2-%E7%BD%91%E9%A1%B5%E7%AD%9B%E9%80%89">网页筛选</a>：能从网页中提取所需信息。</li>
-                        <li><a href="https://github.com/YJY-yc/Advanced-Network-Toolset?tab=readme-ov-file#3-dns%E7%BC%96%E8%BE%91">DNS 编辑</a>：对 DNS 记录进行管理和编辑。</li>
-                        <li><a href="https://github.com/YJY-yc/Advanced-Network-Toolset?tab=readme-ov-file#4-ping">Ping</a>：测试网络连通性。</li>
-                        <li><a href="https://github.com/YJY-yc/Advanced-Network-Toolset?tab=readme-ov-file#5-%E8%BD%AC%E5%8F%91%E6%96%87%E4%BB%B6">转发文件</a>：可将文件转发到指定位置。</li>
-                        <li><a href="https://github.com/YJY-yc/Advanced-Network-Toolset?tab=readme-ov-file#6-%E5%86%85%E7%BD%91%E9%80%9A%E8%AE%AF">内网通讯</a>：实现内网设备间的信息交流。</li>
-						<li><a href="">文件服务（NEW）</a>：文件夹的文件服务，提供上传、下载操作，跨平台，跨系统</li>
-                    </ul>
-                    <div class="links">
-                        <h3>相关链接</h3>
-                        <a href="https://github.com/YJY-yc/Advanced-Network-Toolset">开源项目地址</a>
-                    </div>
-                </td>
-            </tr>
-        </table>
+
+<header>
+  <div class="nav">
+    <div class="brand" id="navBrand">Nodanium</div>
+    <div class="nav-right">
+      <div id="navVersion"></div>
+      <a class="gh-btn" id="ghRepo" href="#" target="_blank" rel="noopener noreferrer">
+        <span class="mark">Git&#47;Hub</span>
+        <span id="ghRepoLabel">仓库</span>
+      </a>
     </div>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Nodanium 下载</h1>
+  <p>多线程网络下载工具 · 网页爬取 · 资源抓取，支持 Windows 与 Linux。</p>
+  <div class="version">最新版本 <span id="versionTag">--</span></div>
+</section>
+
+<section class="section" id="downloads">
+  <div class="section-title">选择下载</div>
+  <div class="section-note" id="dlNote">正在检测系统…</div>
+  <div class="grid" id="platformGrid"></div>
+</section>
+
+<footer>
+  <div id="footerText">Nodanium 多线程网络下载工具</div>
+  <div>基于 MIT License 开源</div>
+</footer>
+
+<!-- 网盘提取码弹窗（需在脚本之前，确保 DOM 先就绪） -->
+<div class="modal" id="netdiskModal">
+  <div class="modal-box">
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-actions">
+      <button class="btn btn-copy" id="copyBtn">复制提取码</button>
+      <button class="btn btn-cancel" id="cancelBtn">取消</button>
+      <button class="btn btn-confirm" id="confirmBtn">前往网盘</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============================================================
+     下载数据配置区 —— 在下方填入下载链接即可，无需额外 json 文件
+     各字段说明：
+       github   : GitHub 直链 / Release 下载地址
+       netdisk  : 网盘分享链接
+       留空则对应按钮显示为"不可用"
+     ============================================================ */
+  var DATA = {
+    app: {
+      name: "Nodanium",
+      version: "3.6.0.3",
+      source_repo: "https://github.com/YJY-yc/Nodanium",          // github 仓库地址
+      release_page: "https://github.com/YJY-yc/Nodanium/releases/tag/3.6.0.3"           // Release 页面
+    },
+    releases: {
+      linux: {
+        title: "Linux",
+        subtitle: "适用于Ubuntu等发行版     |最低要求 glibc ≥ 2.38|     依赖：libwxgtk3.2-1t64, libc6, libgtk-3-0t64, libnotify4",
+        arch: "x64",
+        installer: {
+          name: "Nodanium_3.6.0.3_amd64.deb",
+          size: "",
+          github: "https://github.com/YJY-yc/Nodanium/releases/download/3.6.0.3/nodanium_3.6.0.3_amd64.deb",            // ← 填写 Linux 安装包 GitHub 链接
+          netdisk: "https://yjymain.lanzouq.com/iV0ZD43vvhpc",            // ← 填写 Linux 安装包网盘链接
+          netdisk_pwd: "0000"         // ← 网盘提取码（留空则不弹窗）。示例：abcd（如分享需要密码）
+        },
+        archive: {
+          name: "Nodanium_3.6.0.3_x86_64.tar.gz",
+          size: "",
+          github: "https://github.com/YJY-yc/Nodanium/releases/download/3.6.0.3/nodanium_3.6.0.3_x86_64.tar.gz",            // ← 填写 Linux 压缩包 GitHub 链接
+          netdisk: "https://yjymain.lanzouq.com/iXDtZ43vvrvi",            // ← 填写 Linux 压缩包网盘链接
+          netdisk_pwd: "0000"         // ← 网盘提取码（留空则不弹窗）
+        }
+      },
+      windows: {
+        title: "Windows",
+        subtitle: "适用于 Windows 10 / 11 (64 位)",
+        arch: "x64",
+        installer: {
+          name: "Nodanium_3.6.0.3_x64_setup.exe",
+          size: "",
+          github: "https://github.com/YJY-yc/Nodanium/releases/download/3.6.0.3/nodanium_3.6.0.3_x64_setup.exe",            // ← 填写 Windows 安装包 GitHub 链接
+          netdisk: "https://yjymain.lanzouq.com/iADAP43vvnoh",            // ← 填写 Windows 安装包网盘链接
+          netdisk_pwd: "0000"         // ← 网盘提取码（留空则不弹窗）
+        },
+        archive: {
+          name: "Nodanium_3.6.0.3_x64_portable_upx.zip",
+          size: "",
+          github: "https://github.com/YJY-yc/Nodanium/releases/download/3.6.0.3/nodanium_3.6.0.3_x64_portable_upx.zip",            // ← 填写 Windows 压缩包 GitHub 链接
+          netdisk: "https://yjymain.lanzouq.com/irrZK43vvkuf",            // ← 填写 Windows 压缩包网盘链接
+          netdisk_pwd: ""         // ← 网盘提取码（留空则不弹窗）
+        }
+      }
+    }
+  };
+
+  /* ==================== 以下为渲染逻辑，一般无需修改 ==================== */
+
+  /* 弹窗相关 DOM 引用（元素位于页面底部） */
+  var modal = document.getElementById("netdiskModal");
+  var modalBody = document.getElementById("modalBody");
+  var confirmBtn = document.getElementById("confirmBtn");
+  var copyBtn = document.getElementById("copyBtn");
+  var cancelBtn = document.getElementById("cancelBtn");
+
+  /* 轻提示（用于复制反馈） */
+  var _toastEl = null; var _toastTimer = null;
+  function showToast(msg) {
+    if (!_toastEl) {
+      _toastEl = document.createElement("div");
+      _toastEl.style.cssText = "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);" +
+        "background:#2c3e50;color:#fff;padding:10px 18px;border-radius:6px;font-size:13px;z-index:999;" +
+        "opacity:0;transition:opacity .25s;pointer-events:none;";
+      document.body.appendChild(_toastEl);
+    }
+    _toastEl.textContent = msg;
+    _toastEl.style.opacity = "1";
+    clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(function () { _toastEl.style.opacity = "0"; }, 2200);
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function typeLabel(t) { return (t === "installer") ? "安装包" : "压缩包"; }
+  function sizeLabel(k) { return (k && k.trim()) ? " · " + esc(k) : ""; }
+
+  function fileChip(versionKey, type, file, open) {
+    var gh = (file.github || "").trim();
+    var nd = (file.netdisk || "").trim();
+    var ghBtn = gh
+      ? '<a class="dl-btn github" href="' + esc(gh) + '" target="_blank" rel="noopener noreferrer">GitHub 下载</a>'
+      : '<div class="dl-btn github disabled">GitHub 下载</div>';
+    var pwd = (file.netdisk_pwd || "").trim();
+    var ndBtn = nd
+      ? '<div class="dl-btn netdisk" data-netdisk="' + esc(nd) + '" data-pwd="' + esc(pwd) + '">网盘下载</div>'
+      : '<div class="dl-btn netdisk disabled">网盘下载</div>';
+    return (
+      '<div class="file' + (open ? ' open' : '') + '">' +
+        '<div class="file-labels" data-row="' + esc(versionKey + '-' + type) + '">' +
+          '<div class="fname">' + esc(file.name || "") +
+            '<div class="fmeta">' + typeLabel(type) + sizeLabel(file.size) + '</div>' +
+          '</div>' +
+          '<div class="chev">&#9660;</div>' +
+        '</div>' +
+        '<div class="dl-area"><div class="dl-btns">' + ghBtn + ndBtn + '</div></div>' +
+      '</div>'
+    );
+  }
+
+  // 自动检测操作系统，返回 'linux' / 'windows' / 'macos' / 'other'
+  function detectOS() {
+    var ua = navigator.userAgent || "";
+    var pf = navigator.platform || "";
+    if (/win/i.test(ua) || /win/i.test(pf)) return "windows";
+    if (/linux/i.test(ua) || /linux/i.test(pf)) return "linux";
+    if (/mac/i.test(ua) || /mac/i.test(pf)) return "macos";
+    return "other";
+  }
+
+  function render() {
+    var app = DATA.app;
+    var releases = DATA.releases;
+
+    document.getElementById("navBrand").textContent = app.name || "Nodanium";
+    document.getElementById("navVersion").textContent = "v" + (app.version || "");
+    document.getElementById("versionTag").textContent = app.version || "--";
+
+    // GitHub 仓库入口（顶栏按钮）
+    var ghRepoEl = document.getElementById("ghRepo");
+    if (app.source_repo && app.source_repo.trim()) {
+      ghRepoEl.href = app.source_repo.trim();
+    } else {
+      ghRepoEl.href = "javascript:void(0)";
+      ghRepoEl.style.opacity = ".45";
+      ghRepoEl.title = "请先在 DATA.app.source_repo 填写 GitHub 仓库地址";
+    }
+
+    var detected = detectOS();
+    document.getElementById("dlNote").textContent =
+      (detected === "linux" || detected === "windows")
+        ? "已检测到您的系统为 " + (detected === "linux" ? "Linux" : "Windows") +
+          "，已自动展开对应版本。您也可以展开另一平台。"
+        : "未能确定您的系统，请手动选择下方适用版本。";
+
+    var grid = document.getElementById("platformGrid");
+    grid.innerHTML = "";
+
+    var pairs = [];
+    if (releases.linux) pairs.push(["linux", releases.linux]);
+    if (releases.windows) pairs.push(["windows", releases.windows]);
+
+    pairs.forEach(function (pair) {
+      var key = pair[0], p = pair[1];
+      var isDetected = (key === detected);
+      var rows = "";
+      // 展开安装包；自动检测到的平台展开安装包
+      if (p.installer) rows += fileChip(key, "installer", p.installer, isDetected);
+      if (p.archive) rows += fileChip(key, "archive", p.archive, false);
+      // Linux 卡片附加安装说明
+      var installNote = (key === "linux") ? linuxInstallNote(p) : "";
+      var card = document.createElement("div");
+      card.className = "card" + (isDetected ? " detected" : "");
+      card.innerHTML =
+        '<div class="card-head"><div>' +
+          '<h3>' + esc(p.title || key) + '<span class="detected-tag">当前系统</span></h3>' +
+          '<div class="sub">' + esc(p.subtitle || "") + '</div>' +
+        '</div><span class="arch-tag">' + esc(p.arch || "x64") + '</span></div>' +
+        '<div class="card-body">' + rows + '</div>' + installNote;
+      grid.appendChild(card);
+    });
+  }
+
+  /* Linux 安装说明（.deb，文件名取自安装包配置） */
+  function linuxInstallNote(p) {
+    // 若安装包已是 .deb 则直接使用；否则去掉原扩展名后补 .deb
+    var src = ((p.installer && p.installer.name) || "Nodanium-Linux-x64.run").trim();
+    var deb = /\.deb$/i.test(src)
+      ? src
+      : src.replace(/\.(run|exe|AppImage|tar\.gz|zip)$/i, "").trim() + ".deb";
+    if (!deb || deb === ".deb") deb = "Nodanium_3.6.0.3_amd64.deb";
+    return (
+      '<div class="lnote">' +
+        '<div class="lnote-title">Linux 安装提示 (.deb)</div>' +
+        '<pre class="lcode">' + esc(
+"# Debian 系（Ubuntu / Debian / Mint）推荐命令，apt 会自动安装缺失依赖：\n" +
+"sudo apt install ./" + deb + "\n\n" +
+"# 若只装了主包、提示缺依赖，用如下两条修复：\n" +
+"sudo dpkg -i " + deb + "\n" +
+"sudo apt install -f"
+        ) + '</pre>' +
+        '<div class="lcopy"><button class="btn btn-copy btn-sm" type="button" data-lcopy="1">复制命令</button></div>' +
+      '</div>'
+    );
+  }
+
+  /* ---------- 网盘下载弹窗 ---------- */
+  // 记录待打开的网盘链接与提取码
+  var pendingNetdisk = { url: "", pwd: "" };
+
+  // 复制任意文本到剪贴板（Promise 或同步回退均可），返回是否成功
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        navigator.clipboard.writeText(text).then(function () {
+          showToast("已复制");
+        }).catch(function () { fallbackCopy(text); });
+        return true;
+      } catch (e) { /* 回退到下面 */ }
+    }
+    return fallbackCopy(text);
+  }
+  function fallbackCopy(text) {
+    try {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      if (ok) { showToast("已复制"); return true; }
+    } catch (e) { /* noop */ }
+    showToast("复制失败，请手动复制");
+    return false;
+  }
+
+  document.addEventListener("click", function (e) {
+    // 复制安装命令
+    var lcopy = e.target.closest("[data-lcopy]");
+    if (lcopy) {
+      var pre = lcopy.closest(".lnote").querySelector(".lcode");
+      copyText(pre.textContent.trim());
+      return;
+    }
+    // 文件卡折叠/展开
+    var label = e.target.closest(".file-labels");
+    if (label) {
+      label.closest(".file").classList.toggle("open");
+      return;
+    }
+    // 网盘下载按钮：先弹窗提示提取码，确认后再打开链接
+    var ndBtn = e.target.closest(".dl-btn.netdisk:not(.disabled)");
+    if (ndBtn) {
+      e.preventDefault();
+      pendingNetdisk.url = ndBtn.getAttribute("data-netdisk");
+      pendingNetdisk.pwd = ndBtn.getAttribute("data-pwd") || "";
+      openNetdiskConfirm();
+    }
+  });
+
+  function openNetdiskConfirm() {
+    var hasPwd = !!pendingNetdisk.pwd;
+    var pwdLine = hasPwd
+      ? '<p class="pwd-tip">提取码：<b class="pwd-code">'
+        + esc(pendingNetdisk.pwd) + '</b></p>'
+      : '<p class="pwd-tip dim">此链接无需提取码</p>';
+    var confirmText = hasPwd ? "复制提取码并前往网盘" : "前往网盘";
+    modalBody.innerHTML =
+      '<p class="pwd-title">网盘链接已准备好</p>' +
+      pwdLine +
+      '<p class="pwd-note">提取码可复制使用。</p>';
+    confirmBtn.textContent = confirmText;
+    modal.classList.add("show");
+    copyBtn.style.display = hasPwd ? "inline-block" : "none";
+  }
+  function closeNetdiskConfirm() {
+    modal.classList.remove("show");
+  }
+  // 复制提取码到剪贴板（复用通用复制逻辑），失败时通过弹窗提示手动复制
+  function copyPwd() {
+    if (!pendingNetdisk.pwd) return false;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        navigator.clipboard.writeText(pendingNetdisk.pwd).then(function () {
+          showToast("提取码已复制");
+        }).catch(function () {
+          if (!fallbackCopy(pendingNetdisk.pwd)) manualCopyHint();
+        });
+        return true;
+      } catch (e) { /* 回退 */ }
+    }
+    if (!fallbackCopy(pendingNetdisk.pwd)) manualCopyHint();
+    return true;
+  }
+  // 复制失败时提示，并保持弹窗打开方便用户手动复制
+  function manualCopyHint() {
+    showToast("请手动复制提取码（弹窗中已高亮显示）");
+    var code = modalBody.querySelector(".pwd-code");
+    if (code) code.style.background = "#eaf2ff";
+    confirmBtn.textContent = "我记住了，前往网盘";
+    copyBtn.textContent = "再试一次复制";
+  }
+
+  function goNetdisk() {
+    // 有提取码时，导航前先尝试复制，方便用户在网盘页面直接粘贴
+    if (pendingNetdisk.pwd) copyPwd();
+    closeNetdiskConfirm();
+    var w = window.open(pendingNetdisk.url, "_blank");
+    if (w) w.opener = null;
+    pendingNetdisk.url = "";
+    pendingNetdisk.pwd = "";
+  }
+
+  confirmBtn.addEventListener("click", goNetdisk);
+  copyBtn.addEventListener("click", copyPwd);
+  cancelBtn.addEventListener("click", closeNetdiskConfirm);
+
+  // 点击遮罩关闭
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) closeNetdiskConfirm();
+  });
+  // Esc 关闭
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeNetdiskConfirm();
+  });
+
+  render();
+})();
+</script>
+
 </body>
 </html>
