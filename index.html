@@ -206,9 +206,9 @@
   var DATA = {
     app: {
       name: "Nodanium",
-      version: "3.6.0.3",
+      version: "3.6.1.1",
       source_repo: "https://github.com/YJY-yc/Nodanium",          // github 仓库地址
-      release_page: "https://github.com/YJY-yc/Nodanium/releases/tag/3.6.0.3"           // Release 页面
+      release_page: "https://github.com/YJY-yc/Nodanium/releases/tag/3.6.1.1"           // Release 页面
     },
     releases: {
       linux: {
@@ -216,17 +216,17 @@
         subtitle: "适用于Ubuntu等发行版     |最低要求 glibc ≥ 2.38|     依赖：libwxgtk3.2-1t64, libc6, libgtk-3-0t64, libnotify4",
         arch: "x64",
         installer: {
-          name: "Nodanium_3.6.0.3_amd64.deb",
+          name: "Nodanium_3.6.1.1_amd64.deb",
           size: "",
-          github: "https://github.com/YJY-yc/Nodanium/releases/download/3.6.0.3/nodanium_3.6.0.3_amd64.deb",            // ← 填写 Linux 安装包 GitHub 链接
-          netdisk: "https://yjymain.lanzouq.com/iV0ZD43vvhpc",            // ← 填写 Linux 安装包网盘链接
+          github: "https://github.com/YJY-yc/Nodanium/releases/download/3.6.1.1/nodanium_3.6.1.1_amd64.deb",            // ← 填写 Linux 安装包 GitHub 链接
+          netdisk: "https://yjymain.lanzouq.com/ilp5H45h5v8b",            // ← 填写 Linux 安装包网盘链接
           netdisk_pwd: "0000"         // ← 网盘提取码（留空则不弹窗）。示例：abcd（如分享需要密码）
         },
         archive: {
-          name: "Nodanium_3.6.0.3_x86_64.tar.gz",
+          name: "Nodanium_3.6.1.1_x86_64.tar.xz",
           size: "",
-          github: "https://github.com/YJY-yc/Nodanium/releases/download/3.6.0.3/nodanium_3.6.0.3_x86_64.tar.gz",            // ← 填写 Linux 压缩包 GitHub 链接
-          netdisk: "https://yjymain.lanzouq.com/iXDtZ43vvrvi",            // ← 填写 Linux 压缩包网盘链接
+          github: "https://github.com/YJY-yc/Nodanium/releases/download/3.6.1.1/nodanium_3.6.1.1_x86_64.tar.xz",            // ← 填写 Linux 压缩包 GitHub 链接
+          netdisk: "https://yjymain.lanzouq.com/i2QDm45h5xuf",            // ← 填写 Linux 压缩包网盘链接
           netdisk_pwd: "0000"         // ← 网盘提取码（留空则不弹窗）
         }
       },
@@ -235,17 +235,17 @@
         subtitle: "适用于 Windows 10 / 11 (64 位)",
         arch: "x64",
         installer: {
-          name: "Nodanium_3.6.0.3_x64_setup.exe",
+          name: "Nodanium_3.6.1.1_x64_setup.exe",
           size: "",
-          github: "https://github.com/YJY-yc/Nodanium/releases/download/3.6.0.3/nodanium_3.6.0.3_x64_setup.exe",            // ← 填写 Windows 安装包 GitHub 链接
-          netdisk: "https://yjymain.lanzouq.com/iADAP43vvnoh",            // ← 填写 Windows 安装包网盘链接
+          github: "https://github.com/YJY-yc/Nodanium/releases/download/3.6.1.1/Nodanium_3.6.1.1_x64_setup.exe",            // ← 填写 Windows 安装包 GitHub 链接
+          netdisk: "https://yjymain.lanzouq.com/ijdSS45h5xej",            // ← 填写 Windows 安装包网盘链接
           netdisk_pwd: "0000"         // ← 网盘提取码（留空则不弹窗）
         },
         archive: {
-          name: "Nodanium_3.6.0.3_x64_portable_upx.zip",
+          name: "Nodanium_3.6.1.1_x64_portable_upx.zip",
           size: "",
-          github: "https://github.com/YJY-yc/Nodanium/releases/download/3.6.0.3/nodanium_3.6.0.3_x64_portable_upx.zip",            // ← 填写 Windows 压缩包 GitHub 链接
-          netdisk: "https://yjymain.lanzouq.com/irrZK43vvkuf",            // ← 填写 Windows 压缩包网盘链接
+          github: "https://github.com/YJY-yc/Nodanium/releases/download/3.6.1.1/nodanium_3.6.1.1_x64_portable_upx.zip",            // ← 填写 Windows 压缩包 GitHub 链接
+          netdisk: "https://yjymain.lanzouq.com/ielVi45h5w1a",            // ← 填写 Windows 压缩包网盘链接
           netdisk_pwd: ""         // ← 网盘提取码（留空则不弹窗）
         }
       }
@@ -307,13 +307,12 @@
     );
   }
 
-  // 自动检测操作系统，返回 'linux' / 'windows' / 'macos' / 'other'
+  // 自动检测操作系统，返回 'linux' / 'windows' / 'other'
   function detectOS() {
     var ua = navigator.userAgent || "";
     var pf = navigator.platform || "";
     if (/win/i.test(ua) || /win/i.test(pf)) return "windows";
     if (/linux/i.test(ua) || /linux/i.test(pf)) return "linux";
-    if (/mac/i.test(ua) || /mac/i.test(pf)) return "macos";
     return "other";
   }
 
@@ -377,12 +376,12 @@
     var deb = /\.deb$/i.test(src)
       ? src
       : src.replace(/\.(run|exe|AppImage|tar\.gz|zip)$/i, "").trim() + ".deb";
-    if (!deb || deb === ".deb") deb = "Nodanium_3.6.0.3_amd64.deb";
+    if (!deb || deb === ".deb") deb = "Nodanium_3.6.1.1_amd64.deb";
     return (
       '<div class="lnote">' +
         '<div class="lnote-title">Linux 安装提示 (.deb)</div>' +
         '<pre class="lcode">' + esc(
-"# Debian 系（Ubuntu / Debian / Mint）推荐命令，apt 会自动安装缺失依赖：\n" +
+"# Ubuntu 推荐命令，apt 会自动安装缺失依赖：\n" +
 "sudo apt install ./" + deb + "\n\n" +
 "# 若只装了主包、提示缺依赖，用如下两条修复：\n" +
 "sudo dpkg -i " + deb + "\n" +
